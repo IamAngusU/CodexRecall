@@ -20,6 +20,10 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 
+[project.urls]
+Source = "https://github.com/IamAngusU/CodexRecall"
+Issues = "https://github.com/IamAngusU/CodexRecall/issues"
+
 [project.scripts]
 codex-recall = "codex_recall.cli:main"
 codex-recall-mcp = "codex_recall.mcp:main"

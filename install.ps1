@@ -45,7 +45,7 @@ $repoRoot = if ($PSCommandPath) { Split-Path -Parent $PSCommandPath } else { $nu
 $source = if ($repoRoot -and (Test-Path -LiteralPath (Join-Path $repoRoot 'pyproject.toml'))) {
     $repoRoot
 } else {
-    'https://github.com/IamAngusU/CodexRecall/archive/refs/heads/main.zip'
+    'https://github.com/IamAngusU/CodexRecall/archive/refs/tags/v0.1.0.zip'
 }
 
 Write-Host "Python $($python.Version): $($python.File)"
