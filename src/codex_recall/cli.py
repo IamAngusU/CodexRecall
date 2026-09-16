@@ -97,6 +97,9 @@ def _print_sync(result: dict) -> None:
 
 
 def main(argv: Sequence[str] | None = None) -> None:
+    reconfigure = getattr(sys.stdout, "reconfigure", None)
+    if callable(reconfigure):
+        reconfigure(encoding="utf-8", errors="replace")
     parser = _parser()
     arguments = list(argv) if argv is not None else sys.argv[1:]
     if not arguments:

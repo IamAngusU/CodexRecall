@@ -21,7 +21,7 @@ fi
 if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/pyproject.toml" ]; then
   SOURCE="$SCRIPT_DIR"
 else
-  SOURCE="https://github.com/IamAngusU/CodexRecall/archive/refs/tags/v0.1.0.zip"
+  SOURCE="https://github.com/IamAngusU/CodexRecall/archive/refs/tags/v0.1.1.zip"
 fi
 
 echo "Installing CodexRecall with $PYTHON from $SOURCE"
