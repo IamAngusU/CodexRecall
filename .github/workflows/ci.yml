@@ -1,20 +1,42 @@
 name: CI
 
 on:
+  push:
+    branches: [main, 'alpha/**']
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
+    timeout-minutes: 15
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.10", "3.13"]
+        python-version: ['3.10', '3.13']
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Archive exact source revision
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.13'
+        run: git archive --format=zip --output=source-snapshot.zip HEAD
+      - name: Retain auditable source snapshot
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.13'
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-${{ github.sha }}
+          path: source-snapshot.zip
+          if-no-files-found: error
+          retention-days: 7
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
